@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: account-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: account-service
+    spec:
+      containers:
+      - name: account-service
+        image: 192.168.99.100:5000/account-service
+        ports:
+        - containerPort: 9010
+        env:
+        - name: CONFIG_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: config-server-url
+        volumeMounts:
+        - name: log-vol
+          mountPath: /Users/yenchu/workspace/log
+      volumes:
+      - name: log-vol
+        persistentVolumeClaim:
+          claimName: log-claim

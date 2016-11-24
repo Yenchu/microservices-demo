@@ -1,0 +1,20 @@
+CONFIG_SERVER_URL: http://127.0.0.1:8888
+
+server:
+  port: 7979
+
+spring:
+  application:
+    name: monitor-dashboard
+  main:
+    banner-mode: "off"
+  mvc:
+    favicon.enabled: false
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URL}
+      fail-fast: true
+
+turbine:
+  # turbine.stream use stream.port to avoid using server.port
+  stream.port: 8989

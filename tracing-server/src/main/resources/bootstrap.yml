@@ -1,0 +1,16 @@
+CONFIG_SERVER_URL: http://127.0.0.1:8888
+
+server:
+  port: 9411
+
+spring:
+  application:
+    name: tracing-server
+  main:
+    banner-mode: "off"
+  mvc:
+    favicon.enabled: false
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URL}
+      fail-fast: true

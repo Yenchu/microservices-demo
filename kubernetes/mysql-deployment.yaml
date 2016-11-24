@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: 192.168.99.100:5000/mysql:5.7
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: root-pwd
+        volumeMounts:
+        - name: db-vol
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: db-vol
+        persistentVolumeClaim:
+          claimName: db-claim

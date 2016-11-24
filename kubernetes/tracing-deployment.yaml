@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tracing-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tracing-server
+    spec:
+      containers:
+      - name: tracing-server
+        image: 192.168.99.100:5000/tracing-server
+        ports:
+        - containerPort: 9411
+        env:
+        - name: CONFIG_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: config-server-url
+        volumeMounts:
+        - name: log-vol
+          mountPath: /Users/yenchu/workspace/log
+      volumes:
+      - name: log-vol
+        persistentVolumeClaim:
+          claimName: log-claim

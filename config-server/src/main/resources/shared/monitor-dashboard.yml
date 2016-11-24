@@ -1,0 +1,7 @@
+turbine:
+  aggregator:
+    clusterConfig: USERS
+  appConfig: account-service,auth-service
+  # to find which cluster the apps should be aggragated to
+  clusterNameExpression: metadata['cluster']
+  combineHostPort: true

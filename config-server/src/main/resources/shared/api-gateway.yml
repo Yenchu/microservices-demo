@@ -1,0 +1,13 @@
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+
+  routes:
+    auth-service:
+      path: /auth/**
+    account-service:
+      path: /acct/**
+    static:
+      path: /static/**

@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: config-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      containers:
+      - name: config-server
+        image: 192.168.99.100:5000/config-server
+        ports:
+        - containerPort: 8888
+        env:
+        - name: APP_CONFIG_DIR
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: app-config-dir
+        - name: APP_LOGGINH_DIR
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: app-logging-dir
+        - name: SERVICE_REGISTRY_URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: service-registry-url
+        - name: RABBITMQ_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: rabbitmq-host
+        volumeMounts:
+        - name: config-vol
+          mountPath: /Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared
+        - name: log-vol
+          mountPath: /Users/yenchu/workspace/log
+      volumes:
+      - name: config-vol
+        persistentVolumeClaim:
+          claimName: config-claim
+      - name: log-vol
+        persistentVolumeClaim:
+          claimName: log-claim
+        

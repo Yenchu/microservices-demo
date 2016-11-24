@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+data:
+  app-config-dir: "/Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared"
+  app-logging-dir: "/Users/yenchu/workspace/log"
+  config-server-url: http://config-server:8888
+  service-registry-url: http://service-registry:8761/eureka/
+  rabbitmq-host: rabbitmq
+  

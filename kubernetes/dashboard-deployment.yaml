@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: monitor-dashboard
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: monitor-dashboard
+    spec:
+      containers:
+      - name: monitor-dashboard
+        image: 192.168.99.100:5000/monitor-dashboard
+        ports:
+        - name: hystrix
+          containerPort: 7979
+        - name: turbine
+          containerPort: 8989
+        env:
+        - name: CONFIG_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: config-server-url
+        volumeMounts:
+        - name: log-vol
+          mountPath: /Users/yenchu/workspace/log
+      volumes:
+      - name: log-vol
+        persistentVolumeClaim:
+          claimName: log-claim

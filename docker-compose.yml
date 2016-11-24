@@ -1,0 +1,115 @@
+version: '2'
+services:
+  rabbitmq:
+    image: 192.168.99.100:5000/rabbitmq:management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: amqp
+   
+  config-server:
+    image: 192.168.99.100:5000/config-server
+    container_name: config-server
+    hostname: config-server
+    restart: always
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8888:8888"
+    volumes:
+      - /Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared:/Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared
+      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+    environment:
+      APP_CONFIG_DIR: /Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared
+      APP_LOGGINH_DIR: /Users/yenchu/workspace/log
+      SERVICE_REGISTRY_URL: http://service-registry:8761/eureka/
+      RABBITMQ_HOST: rabbitmq
+
+  service-registry:
+    image: 192.168.99.100:5000/service-registry
+    container_name: service-registry
+    hostname: service-registry
+    restart: always
+    depends_on:
+      - config-server
+    ports:
+      - "8761:8761"
+    volumes:
+      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8888
+
+  tracing-server:
+    image: 192.168.99.100:5000/tracing-server
+    container_name: tracing-server
+    hostname: tracing-server
+    restart: always
+    depends_on:
+      - service-registry
+    ports:
+      - "9411:9411"
+    volumes:
+      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8888
+
+  monitor-dashboard:
+    image: 192.168.99.100:5000/monitor-dashboard
+    container_name: monitor-dashboard
+    hostname: monitor-dashboard
+    restart: always
+    depends_on:
+      - service-registry
+    ports:
+      - "7979:7979"
+      - "8989:8989"
+    volumes:
+      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8888
+
+  auth-service:
+    image: 192.168.99.100:5000/auth-service
+    container_name: auth-service
+    hostname: auth-service
+    restart: always
+    depends_on:
+      - service-registry
+    ports:
+      - "9000:9000"
+    volumes:
+      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8888
+
+  account-service:
+    image: 192.168.99.100:5000/account-service
+    container_name: account-service
+    hostname: account-service
+    restart: always
+    depends_on:
+      - service-registry
+    ports:
+      - "9010:9010"
+    volumes:
+      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8888
+
+  api-gateway:
+    image: 192.168.99.100:5000/api-gateway
+    container_name: api-gateway
+    hostname: api-gateway
+    restart: always
+    depends_on:
+      - service-registry
+    ports:
+      - "8080:8080"
+    volumes:
+      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8888

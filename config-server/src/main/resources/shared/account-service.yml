@@ -1,0 +1,5 @@
+ eureka:
+  instance:
+    metadata-map:
+      # the turbine stream cluster it should be aggragated to
+      cluster: USERS

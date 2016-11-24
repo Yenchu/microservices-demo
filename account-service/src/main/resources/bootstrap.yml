@@ -1,0 +1,16 @@
+CONFIG_SERVER_URL: http://127.0.0.1:8888
+
+server:
+  port: 9010
+
+spring:
+  application:
+    name: account-service
+  main:
+    banner-mode: "off"
+  mvc:
+    favicon.enabled: false
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URL}
+      fail-fast: true

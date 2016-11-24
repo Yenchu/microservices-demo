@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-registry
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-registry
+    spec:
+      containers:
+      - name: service-registry
+        image: 192.168.99.100:5000/service-registry
+        ports:
+        - containerPort: 8761
+        env:
+        - name: CONFIG_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: config-server-url
+        volumeMounts:
+        - name: log-vol
+          mountPath: /Users/yenchu/workspace/log
+      volumes:
+      - name: log-vol
+        persistentVolumeClaim:
+          claimName: log-claim

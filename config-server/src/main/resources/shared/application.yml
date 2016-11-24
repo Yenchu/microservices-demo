@@ -1,0 +1,31 @@
+logging:
+  file: ${APP_LOGGINH_DIR}/${spring.application.name}.log
+  level:
+    demo: DEBUG
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: ${SERVICE_REGISTRY_URL}
+
+# integrate rabbitmq for turbine stream and push refresh config
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: amqp
+  sleuth:
+    sampler:
+      # recording all spans for demo
+      percentage: 1.0
