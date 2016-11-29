@@ -1,7 +1,11 @@
-APP_CONFIG_DIR: /Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared
+APP_CONFIG_DIR: /Users/yenchu/git/microservices-demo/config-server/src/main/resources/shared
 APP_LOGGINH_DIR: /Users/yenchu/workspace/log
 SERVICE_REGISTRY_URL: http://127.0.0.1:8761/eureka/
-RABBITMQ_HOST: localhost
+
+RABBITMQ_SERVICE_HOST: localhost
+RABBITMQ_SERVICE_PORT: 5672
+RABBITMQ_SERVICE_USERNAME: admin
+RABBITMQ_SERVICE_PASSWORD: amqp
 
 logging:
   file: ${APP_LOGGINH_DIR}/${spring.application.name}.log
@@ -10,10 +14,10 @@ logging:
 
 spring:
   rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: 5672
-    username: admin
-    password: amqp
+    host: ${RABBITMQ_SERVICE_HOST}
+    port: ${RABBITMQ_SERVICE_PORT}
+    username: ${RABBITMQ_SERVICE_USERNAME}
+    password: ${RABBITMQ_SERVICE_PASSWORD}
   cloud:
     config:
       server:
@@ -22,9 +26,9 @@ spring:
         overrides:
           SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
           APP_LOGGINH_DIR: ${APP_LOGGINH_DIR}
-          spring.rabbitmq.host: ${spring.rabbitmq.host}
-          spring.rabbitmq.port: ${spring.rabbitmq.port}
-          spring.rabbitmq.username: ${spring.rabbitmq.username}
-          spring.rabbitmq.password: ${spring.rabbitmq.password}
+          spring.rabbitmq.host: ${RABBITMQ_SERVICE_HOST}
+          spring.rabbitmq.port: ${RABBITMQ_SERVICE_PORT}
+          spring.rabbitmq.username: ${RABBITMQ_SERVICE_USERNAME}
+          spring.rabbitmq.password: ${RABBITMQ_SERVICE_PASSWORD}
   profiles:
     active: native

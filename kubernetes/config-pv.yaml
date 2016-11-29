@@ -10,4 +10,4 @@ spec:
   capacity:
     storage: 2Gi
   hostPath:
-    path: /Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared
+    path: /Users/yenchu/git/microservices-demo/config-server/src/main/resources/shared

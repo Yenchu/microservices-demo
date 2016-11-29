@@ -30,16 +30,16 @@ spec:
             configMapKeyRef:
               name: env-config
               key: service-registry-url
-        - name: RABBITMQ_HOST
+        - name: RABBITMQ_SERVICE_HOST
           valueFrom:
             configMapKeyRef:
               name: env-config
               key: rabbitmq-host
         volumeMounts:
         - name: config-vol
-          mountPath: /Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared
+          mountPath: /etc/msdemo
         - name: log-vol
-          mountPath: /Users/yenchu/workspace/log
+          mountPath: /var/log/msdemo
       volumes:
       - name: config-vol
         persistentVolumeClaim:

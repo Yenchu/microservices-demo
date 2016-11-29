@@ -10,7 +10,7 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: amqp
-   
+
   config-server:
     image: 192.168.99.100:5000/config-server
     container_name: config-server
@@ -21,13 +21,13 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      - /Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared:/Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared
-      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+      - $APP_CONFIG_DIR:/etc/msdemo
+      - $APP_LOGGINH_DIR:/var/log/msdemo
     environment:
-      APP_CONFIG_DIR: /Users/yenchu/workspace/ms-demo/config-server/src/main/resources/shared
-      APP_LOGGINH_DIR: /Users/yenchu/workspace/log
+      APP_CONFIG_DIR: /etc/msdemo
+      APP_LOGGINH_DIR: /var/log/msdemo
       SERVICE_REGISTRY_URL: http://service-registry:8761/eureka/
-      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_SERVICE_HOST: rabbitmq
 
   service-registry:
     image: 192.168.99.100:5000/service-registry
@@ -39,7 +39,7 @@ services:
     ports:
       - "8761:8761"
     volumes:
-      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+      - $APP_LOGGINH_DIR:/var/log/msdemo
     environment:
       CONFIG_SERVER_URL: http://config-server:8888
 
@@ -53,7 +53,7 @@ services:
     ports:
       - "9411:9411"
     volumes:
-      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+      - $APP_LOGGINH_DIR:/var/log/msdemo
     environment:
       CONFIG_SERVER_URL: http://config-server:8888
 
@@ -68,7 +68,7 @@ services:
       - "7979:7979"
       - "8989:8989"
     volumes:
-      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+      - $APP_LOGGINH_DIR:/var/log/msdemo
     environment:
       CONFIG_SERVER_URL: http://config-server:8888
 
@@ -82,7 +82,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+      - $APP_LOGGINH_DIR:/var/log/msdemo
     environment:
       CONFIG_SERVER_URL: http://config-server:8888
 
@@ -96,7 +96,7 @@ services:
     ports:
       - "9010:9010"
     volumes:
-      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+      - $APP_LOGGINH_DIR:/var/log/msdemo
     environment:
       CONFIG_SERVER_URL: http://config-server:8888
 
@@ -110,6 +110,6 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /Users/yenchu/workspace/log:/Users/yenchu/workspace/log
+      - $APP_LOGGINH_DIR:/var/log/msdemo
     environment:
       CONFIG_SERVER_URL: http://config-server:8888

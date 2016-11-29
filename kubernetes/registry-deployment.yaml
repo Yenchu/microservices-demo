@@ -22,7 +22,7 @@ spec:
               key: config-server-url
         volumeMounts:
         - name: log-vol
-          mountPath: /Users/yenchu/workspace/log
+          mountPath: /var/log/msdemo
       volumes:
       - name: log-vol
         persistentVolumeClaim:
