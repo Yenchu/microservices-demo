@@ -1,5 +1,5 @@
 # Microservices Demo
-Using Spring Cloud to develop microservices and deploy to Kubernetes.
+Using Spring Cloud to develop microservices application and deploy to Kubernetes.
 
 * Externalized configuration: Spring Cloud Config
 * Service registry and discovery: Eureka
@@ -9,11 +9,16 @@ Using Spring Cloud to develop microservices and deploy to Kubernetes.
 * Distributed tracing: Sleuth, Zipkin
 
 ## Deployment
-* `microservices-demo/build-images.sh` is used to build docker images.
+* `build-images.sh` is used to build docker images.
   It tags the images with `192.168.99.100:5000` prefix for uploading them to the registry server on `192.168.99.100`.
-  Update them to the correct address if your registry server' address is not `192.168.99.100:5000`.
+  Update to the correct address if your registry server's address is not `192.168.99.100:5000`.
   If you don't deploy to Kubernetes, you can remove those prefix.
-* To deploy to Kubernetes, this demo uses `Minikube`.
+* `push-images.sh` is used to push docker images to the registry server.
+* `start-containers.sh` is used to start the containers defined in the `docker-compose.yml`.
+* `rm-containers.sh` is used to stop and remove the containers which are started by `start-containers.sh`.
+* `deploy-kubernetes.sh` is used to deploy the demo app to kubernetes.
+  To deploy to Kubernetes, this demo uses `Minikube`.
+* `undeploy-kubernetes.sh` is used to undeploy the demo app in kubernetes.
 
 There are three ways to deploy this demo application.
 ### Local Deployment
@@ -22,7 +27,7 @@ There are three ways to deploy this demo application.
   * Make sure `RABBITMQ_SERVICE_HOST`, `RABBITMQ_SERVICE_PORT`, `RABBITMQ_SERVICE_USERNAME` and  `RABBITMQ_SERVICE_PASSWORD`
     match your RabbitMQ configuration.
   * Set `APP_CONFIG_DIR` and `APP_LOGGINH_DIR` to your correct file path.
-* Run `java -jar _service-jar-file_` to start each service, config-server should be started first, service-registry next, then other services.
+* Use `java -jar` to start each service, config-server should be started first, service-registry next, then other services.
 
 ### Docker Deployment
 * Download rabbitmq-management image.

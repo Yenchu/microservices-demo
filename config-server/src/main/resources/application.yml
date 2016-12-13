@@ -1,5 +1,5 @@
 APP_CONFIG_DIR: /Users/yenchu/git/microservices-demo/config-server/src/main/resources/shared
-APP_LOGGINH_DIR: /Users/yenchu/workspace/log
+APP_LOGGING_DIR: /Users/yenchu/log/microservices-demo
 SERVICE_REGISTRY_URL: http://127.0.0.1:8761/eureka/
 
 RABBITMQ_SERVICE_HOST: localhost
@@ -8,7 +8,7 @@ RABBITMQ_SERVICE_USERNAME: admin
 RABBITMQ_SERVICE_PASSWORD: amqp
 
 logging:
-  file: ${APP_LOGGINH_DIR}/${spring.application.name}.log
+  file: ${APP_LOGGING_DIR}/${spring.application.name}.log
   level:
     demo: DEBUG
 
@@ -25,7 +25,7 @@ spring:
           search-locations: file:${APP_CONFIG_DIR}
         overrides:
           SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
-          APP_LOGGINH_DIR: ${APP_LOGGINH_DIR}
+          APP_LOGGING_DIR: ${APP_LOGGING_DIR}
           spring.rabbitmq.host: ${RABBITMQ_SERVICE_HOST}
           spring.rabbitmq.port: ${RABBITMQ_SERVICE_PORT}
           spring.rabbitmq.username: ${RABBITMQ_SERVICE_USERNAME}

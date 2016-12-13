@@ -10,4 +10,4 @@ spec:
   capacity:
     storage: 5Gi
   hostPath:
-    path: /Users/yenchu/db/mysql
+    path: /Users/yenchu/data/mysql

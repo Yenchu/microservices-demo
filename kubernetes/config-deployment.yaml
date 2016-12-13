@@ -20,7 +20,7 @@ spec:
             configMapKeyRef:
               name: env-config
               key: app-config-dir
-        - name: APP_LOGGINH_DIR
+        - name: APP_LOGGING_DIR
           valueFrom:
             configMapKeyRef:
               name: env-config

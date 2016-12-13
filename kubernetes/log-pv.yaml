@@ -10,4 +10,4 @@ spec:
   capacity:
     storage: 5Gi
   hostPath:
-    path: /Users/yenchu/workspace/log
+    path: /Users/yenchu/log/microservices-demo

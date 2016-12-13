@@ -8,6 +8,6 @@ spec:
   accessModes:
     - ReadWriteOnce
   capacity:
-    storage: 2Gi
+    storage: 1Gi
   hostPath:
     path: /Users/yenchu/git/microservices-demo/config-server/src/main/resources/shared
