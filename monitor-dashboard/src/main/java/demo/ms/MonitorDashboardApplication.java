@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 @EnableHystrixDashboard
+//@EnableTurbine
 @EnableTurbineStream
 @EnableDiscoveryClient
 public class MonitorDashboardApplication {
@@ -27,7 +28,7 @@ public class MonitorDashboardApplication {
 		private Integer streamPort;
 		
 		private String clusterName;
-			    
+
 		@Autowired
 		public WebController(@Value("${turbine.stream.port}") Integer streamPort, 
 				@Value("${turbine.aggregator.clusterConfig}") String clusterName) {

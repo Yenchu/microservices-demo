@@ -9,7 +9,7 @@
 
 	<parent>
 		<groupId>demo.ms</groupId>
-		<artifactId>microservices-demo</artifactId>
+		<artifactId>ms-demo</artifactId>
 		<version>0.0.1</version>
 	</parent>
 
@@ -51,13 +51,8 @@
 		<!-- need to include actuator to provide /hystrix.stream endpoint -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-netflix-hystrix-stream</artifactId>
+			<artifactId>spring-cloud-netflix-hystrix-amqp</artifactId>
 		</dependency>
-		<!-- included in spring-cloud-starter-bus-amqp -->
-		<!-- <dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-		</dependency> -->
 
 		<!-- enable sleuth (log correlation) -->
 		<dependency>
@@ -69,11 +64,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-sleuth-stream</artifactId>
 		</dependency>
-		<!-- included in spring-cloud-starter-bus-amqp -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
-		</dependency> -->
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

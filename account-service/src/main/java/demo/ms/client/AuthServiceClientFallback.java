@@ -1,5 +1,6 @@
 package demo.ms.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,19 +17,19 @@ public class AuthServiceClientFallback implements AuthServiceClient {
 	@Override
 	public List<User> getUsers() {
 		log.warn("Fallback method is called for getting users");
-		return null;
+		return new ArrayList<User>();
 	}
 
 	@Override
 	public User getUser(String username) {
 		log.warn("Fallback method is called for getting user {}", username);
-        return null;
+        return new User("unknown");
 	}
 
 	@Override
 	public User createUser(User user) {
 		log.warn("Fallback method is called for creating user {}", user.getUsername());
-        return null;
+        return user;
 	}
 
 	@Override

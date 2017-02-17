@@ -3,12 +3,6 @@ logging:
   level:
     demo: DEBUG
 
-endpoints:
-  restart:
-    enabled: true
-  shutdown:
-    enabled: true
-
 eureka:
   instance:
     prefer-ip-address: true
@@ -29,3 +23,9 @@ spring:
     sampler:
       # recording all spans for demo
       percentage: 1.0
+
+### not supported in Camden.SR4
+#management.security.enabled: false
+#endpoints:
+#  restart.enabled: true
+#  shutdown.enabled: true

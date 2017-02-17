@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import demo.ms.client.AuthServiceClient;
+import demo.ms.client.AuthServiceRibbonClient;
 import demo.ms.domain.Account;
-import demo.ms.vo.AccountDetail;
 import demo.ms.vo.User;
 
 @Service
@@ -24,11 +24,14 @@ public class AccountService {
 	
 	private AuthServiceClient authClient;
 	
+	private AuthServiceRibbonClient authServiceRibbonClient;
+	
 	private Map<String, Account> accounts;
 
 	@Autowired
-	public AccountService(AuthServiceClient authClient) {
+	public AccountService(AuthServiceClient authClient, AuthServiceRibbonClient authServiceRibbonClient) {
 		this.authClient = authClient;
+		this.authServiceRibbonClient = authServiceRibbonClient;
 	}
 
 	@PostConstruct
@@ -42,34 +45,32 @@ public class AccountService {
 		accounts.put(account.getName(), account);
 	}
 	
-	public AccountDetail getAccountDetail(String name) {
-		Account account = getAccount(name);
-		
-		// just to demo hystrix
-		User user = authClient.getUser(name);
-		
-		AccountDetail detail = new AccountDetail();
-		detail.setAccount(account);
-		detail.setUser(user);
-		return detail;
-	}
-	
 	public List<Account> getAccounts() {
+		// to demo ribbon
+		authServiceRibbonClient.getUsers();
 		return new ArrayList<Account>(accounts.values());
 	}
 	
 	public Account getAccount(String name) {
-		// just to demo sleuth
+		// log is used to demo sleuth: add span and trace IDs to log
 		log.debug("Get account {}", name);
+		User user = authClient.getUser(name);
 		
 		Account account = accounts.get(name);
-		if (account == null) {
+		if (account != null) {
+			// to show which user-service instance is connected
+			Map<String, String> extraInfo = user.getExtra();
+			account.setExtra(extraInfo);
+		} else {
 			log.warn("Account {} is not found!", name);
 		}
 		return account;
 	}
 	
 	public Account createAccount(Account newAccount) {
+		// to demo feign
+		authClient.createUser(new User(newAccount.getName()));
+		
 		accounts.put(newAccount.getName(), newAccount);
 		log.info("Create account {}", newAccount.getName());
 		return newAccount;
@@ -82,7 +83,7 @@ public class AccountService {
 	}
 	
 	public void deleteAccount(String name) {
-		// just to demo hystrix fallback
+		// to demo hystrix fallback
 		authClient.deleteUser(name);
 	}
 }

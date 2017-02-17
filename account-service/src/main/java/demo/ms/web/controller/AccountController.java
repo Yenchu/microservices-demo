@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import demo.ms.domain.Account;
 import demo.ms.service.AccountService;
-import demo.ms.vo.AccountDetail;
 
 @RestController
 public class AccountController {
@@ -31,17 +30,17 @@ public class AccountController {
 	public AccountController(AccountService accountService) {
 		this.accountService = accountService;
 	}
-	
-	@RequestMapping(path = "/accounts/{name}", method = GET)
-	public AccountDetail getAccountDetail(@PathVariable String name) {
-		// just to demo sleuth and hystrix
-		log.debug("Get account detail {}", name);
-		return accountService.getAccountDetail(name);
-	}
 
 	@RequestMapping(path = "/accounts", method = RequestMethod.GET)
 	public List<Account> getAccounts() {
 		return accountService.getAccounts();
+	}
+	
+	@RequestMapping(path = "/accounts/{name}", method = GET)
+	public Account getAccount(@PathVariable String name) {
+		// log is used to demo sleuth: add span and trace IDs to log
+		log.debug("Get account {}", name);
+		return accountService.getAccount(name);
 	}
 	
 	@RequestMapping(path = "/accounts", method = POST)

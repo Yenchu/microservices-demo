@@ -1,5 +1,7 @@
 package demo.ms.vo;
 
+import java.util.Map;
+
 public class User {
 
 	private String username;
@@ -7,6 +9,8 @@ public class User {
 	private String password;
 	
 	private String email;
+	
+	private Map<String, String> extra;
 
 	public User() {
 	}
@@ -38,5 +42,13 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Map<String, String> getExtra() {
+		return extra;
+	}
+
+	public void setExtra(Map<String, String> extra) {
+		this.extra = extra;
 	}
 }

@@ -9,7 +9,7 @@
 
 	<parent>
 		<groupId>demo.ms</groupId>
-		<artifactId>microservices-demo</artifactId>
+		<artifactId>ms-demo</artifactId>
 		<version>0.0.1</version>
 	</parent>
 
@@ -47,11 +47,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-sleuth-stream</artifactId>
 		</dependency>
-		<!-- included in spring-cloud-starter-bus-amqp -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
-		</dependency> -->
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

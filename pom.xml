@@ -4,14 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>demo.ms</groupId>
-	<artifactId>microservices-demo</artifactId>
+	<artifactId>ms-demo</artifactId>
 	<version>0.0.1</version>
 	<packaging>pom</packaging>
 	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.1.RELEASE</version>
+		<!-- Camden.SR4 does not work with 1.4.2+ and 1.5+ -->
+		<version>1.5.1.RELEASE</version>
 		<relativePath/>
 	</parent>
 	
@@ -36,10 +37,21 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Camden.SR2</version>
+				<version>Camden.SR5</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	
+	<repositories>
+	    <repository>
+	        <id>spring-milestones</id>
+	        <name>Spring Milestones</name>
+	        <url>http://repo.spring.io/milestone</url>
+	        <snapshots>
+	            <enabled>false</enabled>
+	        </snapshots>
+	    </repository>
+	</repositories>
 </project>

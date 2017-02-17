@@ -9,7 +9,7 @@
 
 	<parent>
 		<groupId>demo.ms</groupId>
-		<artifactId>microservices-demo</artifactId>
+		<artifactId>ms-demo</artifactId>
 		<version>0.0.1</version>
 	</parent>
 
@@ -38,32 +38,15 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
 		</dependency>
+		<!-- to collect hystrix metrics via HTTP -->
+		<!-- <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-turbine</artifactId>
+		</dependency> -->
 		<!-- to collect hystrix metrics via streaming -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-turbine-stream</artifactId>
-		</dependency>
-		<!-- included in spring-cloud-starter-bus-amqp -->
-		<!-- <dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-		</dependency> -->
-
-		<!-- 4.0.21.Final is not available using 4.0.27 instead -->
-		<dependency>
-		    <groupId>io.netty</groupId>
-		    <artifactId>netty-codec-http</artifactId>
-		    <version>4.0.27.Final</version>
-		</dependency>
-		<dependency>
-		    <groupId>io.netty</groupId>
-		    <artifactId>netty-transport-native-epoll</artifactId>
-		    <version>4.0.27.Final</version>
-		</dependency>
-		<dependency>
-		    <groupId>io.netty</groupId>
-		    <artifactId>netty-handler</artifactId>
-		    <version>4.0.27.Final</version>
+			<artifactId>spring-cloud-starter-turbine-amqp</artifactId>
 		</dependency>
 
 		<dependency>

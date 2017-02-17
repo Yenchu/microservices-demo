@@ -32,3 +32,9 @@ spring:
           spring.rabbitmq.password: ${RABBITMQ_SERVICE_PASSWORD}
   profiles:
     active: native
+
+### not supported in Camden.SR4
+#management.security.enabled: false
+#endpoints:
+#  restart.enabled: true
+#  shutdown.enabled: true

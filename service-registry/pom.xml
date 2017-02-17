@@ -9,7 +9,7 @@
 
 	<parent>
 		<groupId>demo.ms</groupId>
-		<artifactId>microservices-demo</artifactId>
+		<artifactId>ms-demo</artifactId>
 		<version>0.0.1</version>
 	</parent>
 
@@ -28,11 +28,11 @@
 			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
 		</dependency>
 
+		<!-- enable eureka server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
-		<!-- enable eureka server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>

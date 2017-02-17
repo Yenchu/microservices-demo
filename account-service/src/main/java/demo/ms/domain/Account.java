@@ -3,11 +3,7 @@ package demo.ms.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Length;
+import java.util.Map;
 
 public class Account {
 
@@ -15,18 +11,15 @@ public class Account {
 
 	private Date lastSeen;
 
-	@Valid
 	private List<Item> incomes;
 
-	@Valid
 	private List<Item> expenses;
 
-	@Valid
-	@NotNull
 	private Saving saving;
 
-	@Length(min = 0, max = 20_000)
 	private String note;
+	
+	private Map<String, String> extra;
 	
 	public Account() {
 	}
@@ -89,5 +82,13 @@ public class Account {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public Map<String, String> getExtra() {
+		return extra;
+	}
+
+	public void setExtra(Map<String, String> extra) {
+		this.extra = extra;
 	}
 }
