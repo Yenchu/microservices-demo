@@ -8,6 +8,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  selector:
-    matchLabels:
-      volume-name: config-pv
+  volumeName: config-pv

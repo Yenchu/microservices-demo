@@ -55,6 +55,9 @@ public class AccountService {
 		// log is used to demo sleuth: add span and trace IDs to log
 		log.debug("Get account {}", name);
 		User user = authClient.getUser(name);
+		if (user == null || "unknown".equals(user.getUsername())) {
+			throw new IllegalArgumentException("Can not find user " + name);
+		}
 		
 		Account account = accounts.get(name);
 		if (account != null) {
@@ -62,7 +65,7 @@ public class AccountService {
 			Map<String, String> extraInfo = user.getExtra();
 			account.setExtra(extraInfo);
 		} else {
-			log.warn("Account {} is not found!", name);
+			throw new IllegalArgumentException("Can not find account " + name);
 		}
 		return account;
 	}

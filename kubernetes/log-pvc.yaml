@@ -8,6 +8,4 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  selector:
-    matchLabels:
-      volume-name: log-pv
+  volumeName: log-pv
