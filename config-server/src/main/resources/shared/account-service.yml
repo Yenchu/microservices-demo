@@ -1,18 +1,10 @@
 eureka:
   instance:
     metadata-map:
-      # the turbine stream cluster it should be aggragated to
+      # The turbine stream cluster it should be aggragated to
       cluster: USERS
 
-# enable retry
-#spring.cloud.loadbalancer.retry.enabled: true
-
-# need to disable hystrix for retry
-#feign.hystrix.enabled: false
-
-# using ribbon or feign client name to config retry
-#auth-service:
-#  ribbon:
-#    MaxAutoRetries: 1
-#    MaxAutoRetriesNextServer: 1
-#    OkToRetryOnAllOperations: true
+# To enable Hystrix in Feign      
+feign:
+  hystrix:
+    enabled: true

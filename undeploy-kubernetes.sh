@@ -16,3 +16,4 @@ kubectl delete pvc config-claim log-claim
 kubectl delete pv config-pv log-pv
 
 kubectl delete cm env-config
+kubectl delete secrets pwd-secret

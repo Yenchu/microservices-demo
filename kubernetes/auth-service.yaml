@@ -10,3 +10,33 @@ spec:
     - port: 9000
   selector:
     app: auth-service
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: auth-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+      - name: auth-service
+        image: 192.168.99.100:5000/auth-service
+        ports:
+        - containerPort: 9000
+        env:
+        - name: CONFIG_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: config-server-url
+        volumeMounts:
+        - name: log-vol
+          mountPath: /var/log/msdemo
+      volumes:
+      - name: log-vol
+        persistentVolumeClaim:
+          claimName: log-claim

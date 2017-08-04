@@ -1,7 +1,8 @@
+# To demo @RefreshScope
 welcome.msg: Hello!
 
 eureka:
   instance:
     metadata-map:
-      # the turbine stream cluster it should be aggragated to
+      # The turbine stream cluster it should be aggragated to
       cluster: USERS

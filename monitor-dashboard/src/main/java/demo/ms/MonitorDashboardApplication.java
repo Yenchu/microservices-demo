@@ -4,18 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 //import org.springframework.cloud.netflix.turbine.EnableTurbine;
 import org.springframework.cloud.netflix.turbine.stream.EnableTurbineStream;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 @EnableHystrixDashboard
-//@EnableTurbine
 @EnableTurbineStream
-@EnableDiscoveryClient
 public class MonitorDashboardApplication {
 
 	public static void main(String[] args) {
@@ -36,7 +33,7 @@ public class MonitorDashboardApplication {
 			this.clusterName = clusterName;
 		}
 		
-		@RequestMapping(path = {"", "/"})
+		@GetMapping(path = {"", "/"})
 		public String index() {
 			// turbine stream aggregator is installed in the same node as hystrix dashboard
 			return "redirect:/hystrix/monitor?stream=http://localhost:" + streamPort + "/turbine.stream?cluster=" + clusterName;

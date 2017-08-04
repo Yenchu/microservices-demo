@@ -3,11 +3,28 @@ kind: PersistentVolume
 metadata:
   name: config-pv
   labels:
-    volume-name: config-pv
+    type: local
+    name: config-pv
 spec:
-  accessModes:
-    - ReadWriteOnce
+  storageClassName: standard
   capacity:
     storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
   hostPath:
-    path: /Users/yenchu/git/microservices-demo/config-server/src/main/resources/shared
+    path: "/Users/yenchu/git/microservices-demo/config-server/src/main/resources/shared"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-claim
+spec:
+  storageClassName: standard
+  selector:
+    matchLabels:
+      name: "config-pv"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

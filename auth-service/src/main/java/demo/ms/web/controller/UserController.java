@@ -1,8 +1,5 @@
 package demo.ms.web.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import demo.ms.domain.User;
@@ -37,7 +35,7 @@ public class UserController {
 		this.welcomeMsg = welcomeMsg;
 	}
 	
-	@RequestMapping(path = {"", "/"}, method = GET)
+	@GetMapping(path = {"", "/"})
 	public Map<String, String> hello() {
 		// add service instance info to show which service instance is refreshed
 		Map<String, String> info = IPUtils.getHostnameAndAddress();
@@ -45,19 +43,19 @@ public class UserController {
 		return info;
 	}
 	
-	@RequestMapping(path = "/users", method = GET)
+	@GetMapping(path = "/users")
 	public List<User> getUsers() {
 		return userService.getUsers();
 	}
 	
-	@RequestMapping(path = "/users/{username}", method = GET)
+	@GetMapping(path = "/users/{username}")
 	public User getUser(@PathVariable String username) {
 		// log is used to demo sleuth: add span and trace IDs to log
 		log.debug("Get user {}", username);
 		return userService.getUser(username);
 	}
 	
-	@RequestMapping(path = "/users", method = POST)
+	@PostMapping(path = "/users")
 	public User createUser(@RequestBody User user) {
 		log.info("Create user {}", user);
 		return userService.createUser(user);

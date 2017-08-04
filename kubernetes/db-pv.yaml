@@ -3,11 +3,29 @@ kind: PersistentVolume
 metadata:
   name: db-pv
   labels:
-    volume-name: db-pv
+    type: local
+    name: db-pv
 spec:
-  accessModes:
-    - ReadWriteOnce
+  storageClassName: standard
   capacity:
     storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
   hostPath:
-    path: /Users/yenchu/data/mysql
+    path: "/Users/yenchu/data/mysql"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-claim
+spec:
+  storageClassName: standard
+  selector:
+    matchLabels:
+      name: "db-pv"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+      

@@ -3,11 +3,28 @@ kind: PersistentVolume
 metadata:
   name: log-pv
   labels:
-    volume-name: log-pv
+    type: local
+    name: log-pv
 spec:
-  accessModes:
-    - ReadWriteOnce
+  storageClassName: standard
   capacity:
     storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
   hostPath:
-    path: /Users/yenchu/log/microservices-demo
+    path: "/Users/yenchu/log/microservices-demo"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: log-claim
+spec:
+  storageClassName: standard
+  selector:
+    matchLabels:
+      name: "log-pv"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

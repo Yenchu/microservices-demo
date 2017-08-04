@@ -28,6 +28,9 @@ services:
       APP_LOGGING_DIR: /var/log/msdemo
       SERVICE_REGISTRY_URL: http://service-registry:8761/eureka/
       RABBITMQ_SERVICE_HOST: rabbitmq
+      RABBITMQ_SERVICE_PORT: 5672
+      RABBITMQ_SERVICE_USERNAME: admin
+      RABBITMQ_SERVICE_PASSWORD: amqp
 
   service-registry:
     image: 192.168.99.100:5000/service-registry

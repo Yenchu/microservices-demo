@@ -1,19 +1,16 @@
 package demo.ms.web.controller;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import demo.ms.domain.Account;
@@ -31,29 +28,29 @@ public class AccountController {
 		this.accountService = accountService;
 	}
 
-	@RequestMapping(path = "/accounts", method = RequestMethod.GET)
+	@GetMapping(path = "/accounts")
 	public List<Account> getAccounts() {
 		return accountService.getAccounts();
 	}
 	
-	@RequestMapping(path = "/accounts/{name}", method = GET)
+	@GetMapping(path = "/accounts/{name}")
 	public Account getAccount(@PathVariable String name) {
 		// log is used to demo sleuth: add span and trace IDs to log
 		log.debug("Get account {}", name);
 		return accountService.getAccount(name);
 	}
 	
-	@RequestMapping(path = "/accounts", method = POST)
+	@PostMapping(path = "/accounts")
 	public Account createAccount(@RequestBody Account account) {
 		return accountService.createAccount(account);
 	}
 
-	@RequestMapping(path = "/accounts/{name}", method = PUT)
+	@PutMapping(path = "/accounts/{name}")
 	public Account updateAccount(@PathVariable String name, @RequestBody Account account) {
 		return accountService.updateAccount(account);
 	}
 
-	@RequestMapping(path = "/accounts/{name}", method = DELETE)
+	@DeleteMapping(path = "/accounts/{name}")
 	public void deleteAccount(@PathVariable String name) {
 		accountService.deleteAccount(name);
 	}

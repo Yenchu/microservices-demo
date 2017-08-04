@@ -1,7 +1,7 @@
+### Default configuration, these properties should be set with environment variables in docker/Kubernetes.
 APP_CONFIG_DIR: /Users/yenchu/git/microservices-demo/config-server/src/main/resources/shared
 APP_LOGGING_DIR: /Users/yenchu/log/microservices-demo
 SERVICE_REGISTRY_URL: http://127.0.0.1:8761/eureka/
-
 RABBITMQ_SERVICE_HOST: localhost
 RABBITMQ_SERVICE_PORT: 5672
 RABBITMQ_SERVICE_USERNAME: admin
@@ -23,18 +23,14 @@ spring:
       server:
         native:
           search-locations: file:${APP_CONFIG_DIR}
+        # To override downstream services configuration
         overrides:
-          SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
           APP_LOGGING_DIR: ${APP_LOGGING_DIR}
+          SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL}
           spring.rabbitmq.host: ${RABBITMQ_SERVICE_HOST}
           spring.rabbitmq.port: ${RABBITMQ_SERVICE_PORT}
           spring.rabbitmq.username: ${RABBITMQ_SERVICE_USERNAME}
           spring.rabbitmq.password: ${RABBITMQ_SERVICE_PASSWORD}
   profiles:
+    # Using local filesystem for demo
     active: native
-
-### not supported in Camden.SR4
-#management.security.enabled: false
-#endpoints:
-#  restart.enabled: true
-#  shutdown.enabled: true

@@ -12,10 +12,4 @@ public class DefaultFeignConfiguration {
     public Logger.Level feignLogger() {
         return Logger.Level.BASIC;
     }
-	
-	/*@Bean
-	public Retryer retryer() {
-		Default retryer = new Retryer.Default();
-		return retryer;
-	}*/
 }
