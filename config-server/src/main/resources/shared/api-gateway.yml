@@ -1,4 +1,5 @@
 zuul:
+  retryable: true
   ignoredServices: '*'
   host:
     connect-timeout-millis: 20000
@@ -10,3 +11,12 @@ zuul:
       path: /acct/**
     static:
       path: /static/**
+
+ribbon:
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 1
+  ReadTimeout: 1000
+
+hystrix:
+  command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+  

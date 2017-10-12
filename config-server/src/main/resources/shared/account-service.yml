@@ -3,8 +3,23 @@ eureka:
     metadata-map:
       # The turbine stream cluster it should be aggragated to
       cluster: USERS
-
-# To enable Hystrix in Feign      
+     
 feign:
+  client:
+    config:
+      default:
+        loggerLevel: basic
+  # To enable Hystrix in Feign 
   hystrix:
     enabled: true
+
+# Enable retry for Feign client
+auth-service:
+  ribbon:
+    MaxAutoRetries: 1
+    MaxAutoRetriesNextServer: 1
+    ReadTimeout: 1000
+
+# Make sure the timeout of hystrix is longer then the retry of feign client
+hystrix:
+  command.default.execution.isolation.thread.timeoutInMilliseconds: 5000

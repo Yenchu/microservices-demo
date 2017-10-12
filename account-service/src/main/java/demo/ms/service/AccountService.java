@@ -54,6 +54,7 @@ public class AccountService {
 	public Account getAccount(String name) {
 		// log is used to demo sleuth: add span and trace IDs to log
 		log.debug("Get account {}", name);
+		
 		User user = authClient.getUser(name);
 		if (user == null || "unknown".equals(user.getUsername())) {
 			throw new IllegalArgumentException("Can not find user " + name);

@@ -34,3 +34,6 @@ spring:
   profiles:
     # Using local filesystem for demo
     active: native
+
+# for demo
+management.security.enabled: false

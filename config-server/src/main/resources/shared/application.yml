@@ -25,3 +25,6 @@ spring:
     sampler:
       # Recording all spans for demo
       percentage: 1.0
+
+# for demo
+management.security.enabled: false
