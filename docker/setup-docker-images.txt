@@ -1,0 +1,9 @@
+### RabbitMQ image
+docker pull rabbitmq:management
+docker tag rabbitmq:management 192.168.99.100:5000/rabbitmq:management
+docker push 192.168.99.100:5000/rabbitmq:management
+
+### Zipkin image
+docker pull openzipkin/zipkin
+docker tag openzipkin/zipkin 192.168.99.100:5000/zipkin
+docker push 192.168.99.100:5000/zipkin

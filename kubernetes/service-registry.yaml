@@ -11,12 +11,15 @@ spec:
   selector:
     app: service-registry
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: service-registry
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: service-registry
   template:
     metadata:
       labels:

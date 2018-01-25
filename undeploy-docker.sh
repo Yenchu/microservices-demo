@@ -4,4 +4,4 @@ set -e
 
 docker-compose stop
 
-docker rm rabbitmq config-server service-registry monitor-dashboard tracing-server auth-service account-service api-gateway
+docker rm monitor-dashboard api-gateway account-service auth-service service-registry config-server zipkin rabbitmq

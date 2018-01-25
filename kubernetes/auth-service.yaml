@@ -11,12 +11,15 @@ spec:
   selector:
     app: auth-service
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: auth-service
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service
   template:
     metadata:
       labels:

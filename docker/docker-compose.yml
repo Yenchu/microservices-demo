@@ -11,6 +11,17 @@ services:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: amqp
 
+  zipkin:
+    image: 192.168.99.100:5000/zipkin
+    container_name: zipkin
+    hostname: zipkin
+    ports:
+      - "9411:9411"
+    environment:
+      RABBIT_ADDRESSES: rabbitmq
+      RABBIT_USER: admin
+      RABBIT_PASSWORD: amqp
+
   config-server:
     image: 192.168.99.100:5000/config-server
     container_name: config-server
@@ -41,20 +52,6 @@ services:
       - config-server
     ports:
       - "8761:8761"
-    volumes:
-      - $APP_LOGGING_DIR:/var/log/msdemo
-    environment:
-      CONFIG_SERVER_URL: http://config-server:8888
-
-  tracing-server:
-    image: 192.168.99.100:5000/tracing-server
-    container_name: tracing-server
-    hostname: tracing-server
-    restart: always
-    depends_on:
-      - service-registry
-    ports:
-      - "9411:9411"
     volumes:
       - $APP_LOGGING_DIR:/var/log/msdemo
     environment:

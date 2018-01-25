@@ -12,11 +12,11 @@ kubectl create -f kubernetes/log-pv.yaml
 
 kubectl create -f kubernetes/rabbitmq.yaml
 
+kubectl create -f kubernetes/zipkin.yaml
+
 kubectl create -f kubernetes/config-server.yaml
 
 kubectl create -f kubernetes/service-registry.yaml
-
-kubectl create -f kubernetes/tracing-server.yaml
 
 kubectl create -f kubernetes/monitor-dashboard.yaml
 

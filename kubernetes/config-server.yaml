@@ -11,12 +11,15 @@ spec:
   selector:
     app: config-server
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: config-server
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
   template:
     metadata:
       labels:
@@ -48,6 +51,16 @@ spec:
             configMapKeyRef:
               name: env-config
               key: rabbitmq-host
+        - name: RABBITMQ_SERVICE_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: rabbitmq-user
+        - name: RABBITMQ_SERVICE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pwd-secret
+              key: rabbitmq-pwd
         volumeMounts:
         - name: config-vol
           mountPath: /etc/msdemo

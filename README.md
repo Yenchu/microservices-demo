@@ -22,7 +22,7 @@ Using Spring Cloud to develop microservices application and deploy to Kubernetes
 
 There are three ways to deploy this demo application.
 ### Local Deployment
-* You need to provide RabbitMQ service.
+* You need to provide RabbitMQ and Zipkin services.
 * Edit `config-server/src/main/resources/application.properties`:
   * Make sure `RABBITMQ_SERVICE_HOST`, `RABBITMQ_SERVICE_PORT`, `RABBITMQ_SERVICE_USERNAME` and  `RABBITMQ_SERVICE_PASSWORD`
     match your RabbitMQ configuration.
@@ -30,16 +30,20 @@ There are three ways to deploy this demo application.
 * Use `java -jar` to start each service, config-server should be started first, service-registry next, then other services.
 
 ### Docker Deployment
-* Download rabbitmq-management image.
+* Download rabbitmq:management image.
   Tag the image with `192.168.99.100:5000/rabbitmq:management` if you use `192.168.99.100:5000` prefix in `build-images.sh`.
+* Download openzipkin/zipkin image.
+  Tag the image with `192.168.99.100:5000/zipkin` if you use `192.168.99.100:5000` prefix in `build-images.sh`.
 * Edit `microservices-demo/deploy-docker.sh`, set `APP_CONFIG_DIR` and `APP_LOGGINH_DIR` to your correct file path.
 * Run the script `microservices-demo/build-images.sh` to build docker images.
 * Run the script `microservices-demo/deploy-docker.sh` to start containers.
 * Run the script `microservices-demo/undeploy-docker.sh` if you want to stop and remove the containers.
 
 ### Kubernetes Deployment
-* Download rabbitmq-management image.
+* Download rabbitmq:management image.
   Tag the image with `192.168.99.100:5000/rabbitmq:management`.
+* Download openzipkin/zipkin image.
+  Tag the image with `192.168.99.100:5000/zipkin`.
 * Edit `microservices-demo/kubernetes/config-pv.yaml`, set `spec.hostPath.path` to your correct file path.
   Edit `microservices-demo/kubernetes/log-pv.yaml`, set `spec.hostPath.path` to your correct file path.
 * Run the script `microservices-demo/build-images.sh` to build docker images.

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,35 +22,37 @@ public class AccountController {
 
 	private AccountService accountService;
 
-	@Autowired
 	public AccountController(AccountService accountService) {
 		this.accountService = accountService;
 	}
 
-	@GetMapping(path = "/accounts")
+	@GetMapping("/accounts")
 	public List<Account> getAccounts() {
 		return accountService.getAccounts();
 	}
 	
-	@GetMapping(path = "/accounts/{name}")
+	@GetMapping("/accounts/{name}")
 	public Account getAccount(@PathVariable String name) {
 		// log is used to demo sleuth: add span and trace IDs to log
 		log.debug("Get account {}", name);
 		return accountService.getAccount(name);
 	}
 	
-	@PostMapping(path = "/accounts")
+	@PostMapping("/accounts")
 	public Account createAccount(@RequestBody Account account) {
+		log.info("Create account {}", account.getName());
 		return accountService.createAccount(account);
 	}
 
-	@PutMapping(path = "/accounts/{name}")
+	@PutMapping("/accounts/{name}")
 	public Account updateAccount(@PathVariable String name, @RequestBody Account account) {
+		log.info("Update account {}", name);
 		return accountService.updateAccount(account);
 	}
 
-	@DeleteMapping(path = "/accounts/{name}")
+	@DeleteMapping("/accounts/{name}")
 	public void deleteAccount(@PathVariable String name) {
+		log.info("Delete account {}", name);
 		accountService.deleteAccount(name);
 	}
 }

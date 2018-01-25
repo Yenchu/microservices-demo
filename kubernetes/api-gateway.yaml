@@ -11,12 +11,15 @@ spec:
   selector:
     app: api-gateway
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: api-gateway
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
   template:
     metadata:
       labels:

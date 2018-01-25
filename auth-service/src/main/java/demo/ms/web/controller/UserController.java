@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,13 +28,12 @@ public class UserController {
 
 	private UserService userService;
 
-	@Autowired
 	public UserController(UserService userService, @Value("${welcome.msg}") String welcomeMsg) {
 		this.userService = userService;
 		this.welcomeMsg = welcomeMsg;
 	}
 	
-	@GetMapping(path = {"", "/"})
+	@GetMapping({"", "/"})
 	public Map<String, String> hello() {
 		// add service instance info to show which service instance is refreshed
 		Map<String, String> info = IPUtils.getHostnameAndAddress();
@@ -43,19 +41,19 @@ public class UserController {
 		return info;
 	}
 	
-	@GetMapping(path = "/users")
+	@GetMapping("/users")
 	public List<User> getUsers() {
 		return userService.getUsers();
 	}
 	
-	@GetMapping(path = "/users/{username}")
+	@GetMapping("/users/{username}")
 	public User getUser(@PathVariable String username) {
 		// log is used to demo sleuth: add span and trace IDs to log
 		log.debug("Get user {}", username);
 		return userService.getUser(username);
 	}
 	
-	@PostMapping(path = "/users")
+	@PostMapping("/users")
 	public User createUser(@RequestBody User user) {
 		log.info("Create user {}", user);
 		return userService.createUser(user);

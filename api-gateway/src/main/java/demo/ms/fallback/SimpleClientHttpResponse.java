@@ -10,30 +10,36 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpResponse;
 
 public class SimpleClientHttpResponse implements ClientHttpResponse {
+	
+	private final HttpStatus status;
+
+	public SimpleClientHttpResponse(HttpStatus status) {
+		super();
+		this.status = status;
+	}
 
 	@Override
     public HttpStatus getStatusCode() throws IOException {
-        return HttpStatus.OK;
+        return status;
     }
 
     @Override
     public int getRawStatusCode() throws IOException {
-        return 200;
+        return status.value();
     }
 
     @Override
     public String getStatusText() throws IOException {
-        return "OK";
+        return status.getReasonPhrase();
     }
 
     @Override
     public void close() {
-
     }
 
     @Override
     public InputStream getBody() throws IOException {
-        return new ByteArrayInputStream("Unavailabe!".getBytes());
+        return new ByteArrayInputStream("fallback".getBytes());
     }
 
     @Override

@@ -25,7 +25,7 @@ public interface AuthServiceClient {
 	@RequestMapping(path = "/users", method = POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	User createUser(User user);
 	
-	// deleteUser are used to demo circuit breaker fallback
+	// deleteUser is used to demo circuit breaker fallback
 	@RequestMapping(path = "/users/{username}", method = DELETE)
 	void deleteUser(@PathVariable("username") String username);
 	

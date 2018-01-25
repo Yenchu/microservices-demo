@@ -30,8 +30,6 @@ public class AuthServiceRibbonClient {
 	public List<User> getUsers() {
 		User[] users = restTemplate.getForObject("http://auth-service/users", User[].class);
 		return Arrays.asList(users);
-		//ResponseEntity<List<User>> users = restTemplate.exchange("http://auth-service/users", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>(){});
-		//return users.getBody();
 	}
 	
 	public List<User> defaultUsers() {
@@ -41,12 +39,11 @@ public class AuthServiceRibbonClient {
 
 	@HystrixCommand(fallbackMethod = "defaultUser")
 	public User getUser(String username) {
-		User user = restTemplate.getForObject("http://auth-service/users/{username}", User.class, username);
-		return user;
+		return restTemplate.getForObject("http://auth-service/users/{username}", User.class, username);
 	}
 	
 	public User defaultUser(String username) {
 		log.warn("Fallback method is called for getting user {}", username);
-        return new User("unknown");
+        return new User();
 	}
 }

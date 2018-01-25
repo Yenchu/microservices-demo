@@ -16,12 +16,15 @@ spec:
   selector:
     app: monitor-dashboard
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: monitor-dashboard
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: monitor-dashboard
   template:
     metadata:
       labels:

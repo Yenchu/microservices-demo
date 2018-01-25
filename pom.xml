@@ -12,13 +12,14 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<!-- Camden.SR4 does not work with 1.4.2+ and 1.5+ -->
-		<version>1.5.6.RELEASE</version>
+		<version>1.5.9.RELEASE</version>
 		<relativePath/>
 	</parent>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<spring-cloud.version>Edgware.BUILD-SNAPSHOT</spring-cloud.version>
 		<java.version>1.8</java.version>
 	</properties>
 	
@@ -29,7 +30,7 @@
 		<module>config-server</module>
 		<module>monitor-dashboard</module>
 		<module>service-registry</module>
-		<module>tracing-server</module>
+		
 	</modules>
 
 	<dependencyManagement>
@@ -37,7 +38,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Dalston.SR2</version>
+				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -45,6 +46,14 @@
 	</dependencyManagement>
 	
 	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>http://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 	    <repository>
 	        <id>spring-milestones</id>
 	        <name>Spring Milestones</name>

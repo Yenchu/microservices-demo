@@ -1,47 +1,47 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq
+  name: zipkin
   labels:
-    app: rabbitmq
+    app: zipkin
 spec:
   type: NodePort
   ports:
     - name: service
-      port: 5672
-      targetPort: 5672
-    - name: management
-      port: 15672
-      targetPort: 15672
+      port: 9411
+      targetPort: 9411
   selector:
-    app: rabbitmq
+    app: zipkin
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: rabbitmq
+  name: zipkin
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: rabbitmq
+        app: zipkin
     spec:
       containers:
-      - name: rabbitmq
-        image: 192.168.99.100:5000/rabbitmq:management
+      - name: zipkin
+        image: 192.168.99.100:5000/zipkin
         ports:
         - name: service
-          containerPort: 5672
-        - name: management
-          containerPort: 15672
+          containerPort: 9411
         env:
-        - name: RABBITMQ_DEFAULT_USER
+        - name: RABBIT_ADDRESSES
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: rabbitmq-host
+        - name: RABBIT_USER
           valueFrom:
             configMapKeyRef:
               name: env-config
               key: rabbitmq-user
-        - name: RABBITMQ_DEFAULT_PASS
+        - name: RABBIT_PASSWORD
           valueFrom:
             secretKeyRef:
               name: pwd-secret

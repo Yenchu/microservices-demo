@@ -23,7 +23,7 @@ public class AuthServiceClientFallback implements AuthServiceClient {
 	@Override
 	public User getUser(String username) {
 		log.warn("Fallback method is called for getting user {}", username);
-        return new User("unknown");
+        return new User();
 	}
 
 	@Override
