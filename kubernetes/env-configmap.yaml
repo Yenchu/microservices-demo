@@ -8,6 +8,3 @@ data:
   config-server-url: http://config-server:8888
   service-registry-url: http://service-registry:8761/eureka/
   rabbitmq-host: rabbitmq
-  rabbitmq-user: admin
-  
-  

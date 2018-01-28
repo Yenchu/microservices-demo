@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import demo.ms.client.AuthServiceClient;
 import demo.ms.client.AuthServiceRibbonClient;
@@ -24,14 +25,14 @@ public class AccountService {
 	
 	private static final Logger log = LoggerFactory.getLogger(AccountService.class);
 
-	private AuthServiceClient authClient;
+	private AuthServiceClient authServiceClient;
 	
 	private AuthServiceRibbonClient authServiceRibbonClient;
 	
 	private Map<String, Account> accounts;
 
-	public AccountService(AuthServiceClient authClient, AuthServiceRibbonClient authServiceRibbonClient) {
-		this.authClient = authClient;
+	public AccountService(AuthServiceClient authServiceClient, AuthServiceRibbonClient authServiceRibbonClient) {
+		this.authServiceClient = authServiceClient;
 		this.authServiceRibbonClient = authServiceRibbonClient;
 	}
 
@@ -51,7 +52,8 @@ public class AccountService {
 	}
 	
 	public Account getAccount(String name) {
-		User user = authClient.getUser(name);
+		// to demo feign
+		User user = authServiceClient.getUser(name);
 		
 		return Optional.ofNullable(accounts.get(name))
 			.map(account -> addUserInfo(account, user))
@@ -62,7 +64,7 @@ public class AccountService {
 	}
 	
 	private Account addUserInfo(Account account, User user) {
-		if (!"".equals(user.getUsername())) {
+		if (!StringUtils.isEmpty(user.getUsername())) {
 			// to show which user-service instance is connected
 			Map<String, String> extraInfo = user.getExtra();
 			account.setExtra(extraInfo);
@@ -72,7 +74,7 @@ public class AccountService {
 	
 	public Account createAccount(Account newAccount) {
 		// to demo feign
-		authClient.createUser(new User(newAccount.getName()));
+		authServiceClient.createUser(new User(newAccount.getName()));
 		
 		accounts.put(newAccount.getName(), newAccount);
 		return newAccount;
@@ -84,7 +86,7 @@ public class AccountService {
 	}
 	
 	public void deleteAccount(String name) {
-		// to demo hystrix fallback
-		authClient.deleteUser(name);
+		// to demo ribbon with hystrix fallback
+		authServiceRibbonClient.deleteUser(name);
 	}
 }

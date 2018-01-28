@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,29 +20,37 @@ public class AuthServiceRibbonClient {
 
     private RestTemplate restTemplate;
 
-	@Autowired
 	public AuthServiceRibbonClient(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
 	
-	@HystrixCommand(fallbackMethod = "defaultUsers")
+	@HystrixCommand(fallbackMethod = "defaultGetUsers")
 	public List<User> getUsers() {
 		User[] users = restTemplate.getForObject("http://auth-service/users", User[].class);
 		return Arrays.asList(users);
 	}
 	
-	public List<User> defaultUsers() {
+	public List<User> defaultGetUsers() {
 		log.warn("Fallback method is called for getting users");
         return new ArrayList<User>();
 	}
 
-	@HystrixCommand(fallbackMethod = "defaultUser")
+	@HystrixCommand(fallbackMethod = "defaultGetUser")
 	public User getUser(String username) {
 		return restTemplate.getForObject("http://auth-service/users/{username}", User.class, username);
 	}
 	
-	public User defaultUser(String username) {
+	public User defaultGetUser(String username) {
 		log.warn("Fallback method is called for getting user {}", username);
         return new User();
+	}
+
+	@HystrixCommand(fallbackMethod = "defaultDeleteUser")
+	public void deleteUser(String username) {
+		restTemplate.delete("http://auth-service/users/{username}", username);
+	}
+	
+	public void defaultDeleteUser(String username) {
+		log.warn("Fallback method is called for deleting user {}", username);
 	}
 }

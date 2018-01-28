@@ -2,7 +2,7 @@
 
 set -e
 
-kubectl create -f kubernetes/pwd-secret.yaml
+kubectl create -f kubernetes/config-secret.yaml
 
 kubectl create -f kubernetes/env-configmap.yaml
 

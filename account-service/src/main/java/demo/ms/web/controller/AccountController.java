@@ -26,7 +26,7 @@ public class AccountController {
 		this.accountService = accountService;
 	}
 
-	@GetMapping("/accounts")
+	@GetMapping({"", "/", "/accounts"})
 	public List<Account> getAccounts() {
 		return accountService.getAccounts();
 	}

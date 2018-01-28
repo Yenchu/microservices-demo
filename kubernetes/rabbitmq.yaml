@@ -38,11 +38,11 @@ spec:
         env:
         - name: RABBITMQ_DEFAULT_USER
           valueFrom:
-            configMapKeyRef:
-              name: env-config
+            secretKeyRef:
+              name: config-secret
               key: rabbitmq-user
         - name: RABBITMQ_DEFAULT_PASS
           valueFrom:
             secretKeyRef:
-              name: pwd-secret
+              name: config-secret
               key: rabbitmq-pwd

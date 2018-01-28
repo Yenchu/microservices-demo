@@ -53,13 +53,13 @@ spec:
               key: rabbitmq-host
         - name: RABBITMQ_SERVICE_USERNAME
           valueFrom:
-            configMapKeyRef:
-              name: env-config
+            secretKeyRef:
+              name: config-secret
               key: rabbitmq-user
         - name: RABBITMQ_SERVICE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: pwd-secret
+              name: config-secret
               key: rabbitmq-pwd
         volumeMounts:
         - name: config-vol
