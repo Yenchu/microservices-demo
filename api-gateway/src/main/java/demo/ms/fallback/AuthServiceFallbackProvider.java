@@ -22,19 +22,14 @@ public class AuthServiceFallbackProvider implements FallbackProvider {
 	}
 	
 	@Override
-	public ClientHttpResponse fallbackResponse(final Throwable cause) {
+    public ClientHttpResponse fallbackResponse(String route, final Throwable cause) {
 		log.error("Fallback for error: {}", cause.getMessage());
-		if (cause instanceof HystrixTimeoutException) {
-			return response(HttpStatus.GATEWAY_TIMEOUT);
-		} else {
-			return fallbackResponse();
-		}
-	}
-
-	@Override
-	public ClientHttpResponse fallbackResponse() {
-		return response(HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+        if (cause instanceof HystrixTimeoutException) {
+            return response(HttpStatus.GATEWAY_TIMEOUT);
+        } else {
+            return response(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 	private ClientHttpResponse response(final HttpStatus status) {
 		return new SimpleClientHttpResponse(status) {

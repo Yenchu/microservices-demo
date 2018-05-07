@@ -26,17 +26,21 @@ There are three ways to deploy this demo application.
   - RabbitMQ:
     
     Please see https://www.rabbitmq.com/download.html
+    If using docker, you can use the following command:
+    ```
+    docker run -d -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=amqp --name rabbitmq rabbitmq:management
+    ```
     
   - Zipkin:
     
-    Please see https://github.com/openzipkin/zipkin or zipkin/zipkin-note.txt
+    Please see https://github.com/openzipkin/zipkin or the file `zipkin/zipkin-note.txt`
     
 * Edit `config-server/src/main/resources/application.properties`:
   * Make sure `RABBITMQ_SERVICE_HOST`, `RABBITMQ_SERVICE_PORT`, `RABBITMQ_SERVICE_USERNAME` and  `RABBITMQ_SERVICE_PASSWORD`
     match your RabbitMQ configuration.
   * Set `APP_CONFIG_DIR` and `APP_LOGGINH_DIR` to your correct file path.
 * Use `java -jar` to start each service, config-server should be started first, service-registry next, then other services.
-* Access a service with its URL, eg:
+* Access services with its URL, eg:
 ```
 api-gateway:  http://localhost:8080/
 auth-service:  http://localhost:9000/
@@ -58,7 +62,7 @@ zipkin:  http://localhost:9411/
 * Run the script `microservices-demo/undeploy-docker.sh` if you want to stop and remove the containers.
 * Access a service with its URL (same as Local Deployment)
 
-### Kubernetes Deployment
+### Kubernetes Deployment (v1.10.0)
 * Download rabbitmq:management image.
   Tag the image with `192.168.99.100:5000/rabbitmq:management`.
 * Download openzipkin/zipkin image.
@@ -69,7 +73,7 @@ zipkin:  http://localhost:9411/
 * Run the script `microservices-demo/push-images.sh` to upload docker images to registry server.
 * Run the script `microservices-demo/deploy-kubernetes.sh` to deploy to Kubernetes.
 * Run the script `microservices-demo/undeploy-kubernetes.sh` if you want to stop and remove the containers.
-* Access a service using command `minikube service SERVICE_NAME` eg: 
+* Access services using command `minikube service SERVICE_NAME` eg: 
 ```
 minikube service api-gateway
 minikube service auth-service
