@@ -6,6 +6,7 @@ kubectl delete deploy,svc api-gateway
 kubectl delete deploy,svc account-service
 kubectl delete deploy,svc auth-service
 kubectl delete deploy,svc monitor-dashboard
+kubectl delete deploy,svc turbine-server
 kubectl delete deploy,svc service-registry
 kubectl delete deploy,svc config-server
 

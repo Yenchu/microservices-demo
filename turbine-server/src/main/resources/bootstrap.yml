@@ -1,11 +1,11 @@
 CONFIG_SERVER_URL: http://127.0.0.1:8888
 
 server:
-  port: 9411
+  port: 8989
 
 spring:
   application:
-    name: tracing-server
+    name: turbine-server
   main:
     banner-mode: "off"
   mvc:
@@ -14,4 +14,3 @@ spring:
     config:
       uri: ${CONFIG_SERVER_URL}
       fail-fast: true
-      

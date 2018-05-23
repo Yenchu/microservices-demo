@@ -59,6 +59,20 @@ services:
     environment:
       CONFIG_SERVER_URL: http://config-server:8888
 
+  turbine-server:
+    image: 192.168.99.100:5000/turbine-server
+    container_name: turbine-server
+    hostname: turbine-server
+    restart: always
+    depends_on:
+      - service-registry
+    ports:
+      - "8989:8989"
+    volumes:
+      - $APP_LOGGING_DIR:/var/log/msdemo
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8888
+
   monitor-dashboard:
     image: 192.168.99.100:5000/monitor-dashboard
     container_name: monitor-dashboard
@@ -66,9 +80,9 @@ services:
     restart: always
     depends_on:
       - service-registry
+      - turbine-server
     ports:
       - "7979:7979"
-      - "8989:8989"
     volumes:
       - $APP_LOGGING_DIR:/var/log/msdemo
     environment:

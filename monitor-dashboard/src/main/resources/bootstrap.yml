@@ -14,7 +14,3 @@ spring:
     config:
       uri: ${CONFIG_SERVER_URL}
       fail-fast: true
-
-turbine:
-  # turbine.stream use stream.port to avoid using server.port
-  stream.port: 8989

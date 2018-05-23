@@ -1,35 +1,35 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: monitor-dashboard
+  name: turbine-server
   labels:
-    app: monitor-dashboard
+    app: turbine-server
 spec:
   type: NodePort
   ports:
-    - port: 7979
+    - port: 8989
   selector:
-    app: monitor-dashboard
+    app: turbine-server
 ---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: monitor-dashboard
+  name: turbine-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: monitor-dashboard
+      app: turbine-server
   template:
     metadata:
       labels:
-        app: monitor-dashboard
+        app: turbine-server
     spec:
       containers:
-      - name: monitor-dashboard
-        image: 192.168.99.100:5000/monitor-dashboard
+      - name: turbine-server
+        image: 192.168.99.100:5000/turbine-server
         ports:
-        - containerPort: 7979
+        - containerPort: 8989
         env:
         - name: CONFIG_SERVER_URL
           valueFrom:

@@ -1,0 +1,6 @@
+turbine:
+  aggregator:
+    clusterConfig: USERS
+  appConfig: account-service,auth-service
+  # To find which cluster the apps should be aggragated to
+  clusterNameExpression: metadata['cluster']

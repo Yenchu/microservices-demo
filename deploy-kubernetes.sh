@@ -18,6 +18,8 @@ kubectl create -f kubernetes/config-server.yaml
 
 kubectl create -f kubernetes/service-registry.yaml
 
+kubectl create -f kubernetes/turbine-server.yaml
+
 kubectl create -f kubernetes/monitor-dashboard.yaml
 
 kubectl create -f kubernetes/auth-service.yaml
