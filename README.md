@@ -47,6 +47,7 @@ auth-service:  http://localhost:9000/
 account-service:  http://localhost:9010/
 service-registry: http://localhost:8761/
 config-server:  http://localhost:8888/
+turbine-server:  http://localhost:8989/
 monitor-dashboard:  http://localhost:7979/
 zipkin:  http://localhost:9411/
 ```

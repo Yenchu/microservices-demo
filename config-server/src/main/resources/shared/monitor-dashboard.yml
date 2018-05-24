@@ -1,0 +1,4 @@
+# for demo
+turbine:
+  aggregator:
+    clusterConfig: USERS
