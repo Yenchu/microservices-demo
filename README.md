@@ -33,7 +33,13 @@ There are three ways to deploy this demo application.
     
   - Zipkin:
     
-    Please see https://github.com/openzipkin/zipkin or the file `zipkin/zipkin-note.txt`
+    Please see https://github.com/openzipkin/zipkin
+    ```
+    # Download Zipkin server
+    curl -sSL https://zipkin.io/quickstart.sh | bash -s
+    # Start Zipkin server
+    RABBIT_ADDRESSES=localhost RABBIT_USER=admin RABBIT_PASSWORD=amqp java -jar zipkin.jar
+    ```
     
 * Edit `config-server/src/main/resources/application.properties`:
   * Make sure `RABBITMQ_SERVICE_HOST`, `RABBITMQ_SERVICE_PORT`, `RABBITMQ_SERVICE_USERNAME` and  `RABBITMQ_SERVICE_PASSWORD`

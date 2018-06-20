@@ -1,3 +1,0 @@
-### Download and run zipkin jar
-curl -sSL https://zipkin.io/quickstart.sh | bash -s
-RABBIT_ADDRESSES=localhost RABBIT_USER=admin RABBIT_PASSWORD=amqp java -jar zipkin.jar

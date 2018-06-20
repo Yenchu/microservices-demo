@@ -7,18 +7,19 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: service
-      port: 9411
-      targetPort: 9411
+    - port: 9411
   selector:
     app: zipkin
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: zipkin
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: zipkin
   template:
     metadata:
       labels:
@@ -28,8 +29,7 @@ spec:
       - name: zipkin
         image: 192.168.99.100:5000/zipkin
         ports:
-        - name: service
-          containerPort: 9411
+        - containerPort: 9411
         env:
         - name: RABBIT_ADDRESSES
           valueFrom:
