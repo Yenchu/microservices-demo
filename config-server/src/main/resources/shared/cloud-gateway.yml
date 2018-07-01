@@ -1,0 +1,53 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: auth_service
+        uri: lb://auth-service
+        predicates:
+        - Path=/auth/**
+        filters:
+        # trim prifix path /auth
+        - RewritePath=/auth/(?<segment>.*), /$\{segment}
+        # retry 2 times for http status NOT_FOUND, INTERNAL_SERVER_ERROR
+        - name: Retry
+          args:
+            retries: 2
+            statuses: NOT_FOUND, INTERNAL_SERVER_ERROR
+        # set fallback uri if the backend service cannot be connected
+        - name: Hystrix
+          args:
+            name: auth-api
+            fallbackUri: forward:/auth-service-fallback
+      - id: account_service
+        uri: lb://account-service
+        predicates:
+        - Path=/acct/**
+        filters:
+        - RewritePath=/acct/(?<segment>.*), /$\{segment}
+        - name: Retry
+          args:
+            retries: 2
+            statuses: NOT_FOUND, INTERNAL_SERVER_ERROR
+        - name: Hystrix
+          args:
+            name: account-api
+            fallbackUri: forward:/account-service-fallback
+  webflux.static-path-pattern: /static/**
+
+# config global Hystrix timeout
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
+  
+# just for debug  
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+
+# demo actuator-related urls
+management.endpoints.web.exposure.include: '*'
+  

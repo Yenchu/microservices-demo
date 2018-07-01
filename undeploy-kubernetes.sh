@@ -2,7 +2,7 @@
 
 set -e
 
-kubectl delete deploy,svc api-gateway
+kubectl delete deploy,svc cloud-gateway
 kubectl delete deploy,svc account-service
 kubectl delete deploy,svc auth-service
 kubectl delete deploy,svc monitor-dashboard

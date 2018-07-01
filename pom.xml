@@ -24,6 +24,7 @@
 	<modules>
 		<module>account-service</module>
 		<module>api-gateway</module>
+		<module>cloud-gateway</module>
 		<module>auth-service</module>
 		<module>config-server</module>
         <module>turbine-server</module>

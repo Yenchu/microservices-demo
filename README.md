@@ -4,7 +4,7 @@ Using Spring Cloud to develop microservices application and deploy to Kubernetes
 * Externalized configuration: Spring Cloud Config
 * Service registry and discovery: Eureka
 * Client side load balancing: Ribbon, Feign
-* API gateway: Zuul
+* API gateway: Zuul, Spring Cloud Gateway
 * Circuit breaker: Hystrix, Turbine
 * Distributed tracing: Sleuth, Zipkin
 
@@ -19,6 +19,7 @@ Using Spring Cloud to develop microservices application and deploy to Kubernetes
 * `deploy-kubernetes.sh` is used to deploy the demo app to kubernetes.
   To deploy to Kubernetes, this demo uses `Minikube`.
 * `undeploy-kubernetes.sh` is used to undeploy the demo app in kubernetes.
+* This demo use Spring Cloud Gateway(cloud-gateway) as its api gateway, if you wants to use Zuul, using api-gateway instead.
 
 There are three ways to deploy this demo application.
 ### Local Deployment
@@ -26,6 +27,7 @@ There are three ways to deploy this demo application.
   - RabbitMQ:
     
     Please see https://www.rabbitmq.com/download.html
+    
     If using docker, you can use the following command:
     ```
     docker run -d -p 5672:5672 -p 15672:15672 -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=amqp --name rabbitmq rabbitmq:management
@@ -40,6 +42,11 @@ There are three ways to deploy this demo application.
     # Start Zipkin server
     RABBIT_ADDRESSES=localhost RABBIT_USER=admin RABBIT_PASSWORD=amqp java -jar zipkin.jar
     ```
+
+    If using docker, you can use the following command:
+    ```
+    docker run -d -p 9411:9411 -e RABBIT_ADDRESSES=rabbitmq -e RABBIT_USER=admin -e RABBIT_PASSWORD=amqp --link rabbitmq:rabbitmq --name zipkin openzipkin/zipkin
+    ```
     
 * Edit `config-server/src/main/resources/application.properties`:
   * Make sure `RABBITMQ_SERVICE_HOST`, `RABBITMQ_SERVICE_PORT`, `RABBITMQ_SERVICE_USERNAME` and  `RABBITMQ_SERVICE_PASSWORD`
@@ -48,7 +55,7 @@ There are three ways to deploy this demo application.
 * Use `java -jar` to start each service, config-server should be started first, service-registry next, then other services.
 * Access services with its URL, eg:
 ```
-api-gateway:  http://localhost:8080/
+cloud-gateway:  http://localhost:8080/
 auth-service:  http://localhost:9000/
 account-service:  http://localhost:9010/
 service-registry: http://localhost:8761/
@@ -82,7 +89,7 @@ zipkin:  http://localhost:9411/
 * Run the script `microservices-demo/undeploy-kubernetes.sh` if you want to stop and remove the containers.
 * Access services using command `minikube service SERVICE_NAME` eg: 
 ```
-minikube service api-gateway
+minikube service cloud-gateway
 minikube service auth-service
 minikube service account-service
 minikube service service-registry

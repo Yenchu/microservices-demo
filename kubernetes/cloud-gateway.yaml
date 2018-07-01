@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloud-gateway
+  labels:
+    app: cloud-gateway
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+  selector:
+    app: cloud-gateway
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: cloud-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloud-gateway
+  template:
+    metadata:
+      labels:
+        app: cloud-gateway
+    spec:
+      containers:
+      - name: cloud-gateway
+        image: 192.168.99.100:5000/cloud-gateway
+        ports:
+        - containerPort: 8080
+        env:
+        - name: CONFIG_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: config-server-url
+        volumeMounts:
+        - name: log-vol
+          mountPath: /var/log/msdemo
+      volumes:
+      - name: log-vol
+        persistentVolumeClaim:
+          claimName: log-claim

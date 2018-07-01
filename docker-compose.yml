@@ -117,9 +117,9 @@ services:
       CONFIG_SERVER_URL: http://config-server:8888
 
   api-gateway:
-    image: 192.168.99.100:5000/api-gateway
-    container_name: api-gateway
-    hostname: api-gateway
+    image: 192.168.99.100:5000/cloud-gateway
+    container_name: cloud-gateway
+    hostname: cloud-gateway
     restart: always
     depends_on:
       - service-registry

@@ -26,4 +26,4 @@ kubectl create -f kubernetes/auth-service.yaml
 
 kubectl create -f kubernetes/account-service.yaml
 
-kubectl create -f kubernetes/api-gateway.yaml
+kubectl create -f kubernetes/cloud-gateway.yaml
