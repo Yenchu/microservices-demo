@@ -36,6 +36,7 @@ spring:
           args:
             name: account-api
             fallbackUri: forward:/account-service-fallback
+  # static resources path pattern
   webflux.static-path-pattern: /static/**
 
 # config global Hystrix timeout

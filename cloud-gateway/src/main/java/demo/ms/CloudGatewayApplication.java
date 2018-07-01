@@ -1,6 +1,5 @@
 package demo.ms;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -14,9 +13,6 @@ import reactor.core.publisher.Mono;
 @SpringBootApplication
 public class CloudGatewayApplication {
     
-    @Value("${server.port}")
-    private String port;
-    
     public static void main(String[] args) {
         SpringApplication.run(CloudGatewayApplication.class, args);
     }
@@ -24,11 +20,12 @@ public class CloudGatewayApplication {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
+                // shortcut for index page
                 // it may be better to use a UI microservice
                 .route("index", p -> p.path("/").or().path("/index.html")
                         .filters(f -> f.setPath("/static/index.html"))
                         .uri("lb://cloud-gateway"))
-                // set larger order to put this route to low priority
+                // set larger order to put this route to lower priority, so it wouldn't override other routes
                 .route("not_found", p -> p.order(1000).path("/static/**").negate()
                         .filters(f -> f.setPath("/not-found"))
                         .uri("lb://cloud-gateway"))
